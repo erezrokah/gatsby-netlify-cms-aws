@@ -1,0 +1,6 @@
+@import '../../../assets/scss/variables';
+@import '../../../assets/scss/mixins';
+
+.subscribe {
+  @include margin-bottom(1);
+}

@@ -1,0 +1,258 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Subscribe Should handle jsonp error 1`] = `
+<div
+  class="subscribe"
+>
+  <form
+    class="ui mini loading form"
+    id="mailchimpForm"
+  >
+    <div
+      class="unstackable fields"
+    >
+      <div
+        class="required ten wide field"
+      >
+        <div
+          class="ui input"
+        >
+          <input
+            aria-label="email"
+            id="email"
+            name="email"
+            placeholder="Email"
+            required=""
+            type="email"
+            value="admin@test.com"
+          />
+        </div>
+      </div>
+      <div
+        class="field"
+      >
+        <button
+          class="ui mini secondary button"
+        >
+          Subscribe
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+`;
+
+exports[`Subscribe Should handle jsonp error 2`] = `
+<div
+  class="subscribe"
+>
+  <form
+    class="ui mini loading form"
+    id="mailchimpForm"
+  >
+    <div
+      class="unstackable fields"
+    >
+      <div
+        class="required ten wide field"
+      >
+        <div
+          class="ui input"
+        >
+          <input
+            aria-label="email"
+            id="email"
+            name="email"
+            placeholder="Email"
+            required=""
+            type="email"
+            value="admin@test.com"
+          />
+        </div>
+      </div>
+      <div
+        class="field"
+      >
+        <button
+          class="ui mini secondary button"
+        >
+          Subscribe
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+`;
+
+exports[`Subscribe Should subscribe to email 1`] = `
+<div
+  class="subscribe"
+>
+  <form
+    class="ui mini loading form"
+    id="mailchimpForm"
+  >
+    <div
+      class="unstackable fields"
+    >
+      <div
+        class="required ten wide field"
+      >
+        <div
+          class="ui input"
+        >
+          <input
+            aria-label="email"
+            id="email"
+            name="email"
+            placeholder="Email"
+            required=""
+            type="email"
+            value="admin@test.com"
+          />
+        </div>
+      </div>
+      <div
+        class="field"
+      >
+        <button
+          class="ui mini secondary button"
+        >
+          Subscribe
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+`;
+
+exports[`Subscribe Should subscribe to email 2`] = `
+<div
+  class="subscribe"
+>
+  <form
+    class="ui mini loading form"
+    id="mailchimpForm"
+  >
+    <div
+      class="unstackable fields"
+    >
+      <div
+        class="required ten wide field"
+      >
+        <div
+          class="ui input"
+        >
+          <input
+            aria-label="email"
+            id="email"
+            name="email"
+            placeholder="Email"
+            required=""
+            type="email"
+            value="admin@test.com"
+          />
+        </div>
+      </div>
+      <div
+        class="field"
+      >
+        <button
+          class="ui mini secondary button"
+        >
+          Subscribe
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+`;
+
+exports[`Subscribe Should update email with value 1`] = `
+<div
+  class="subscribe"
+>
+  <form
+    class="ui mini form"
+    id="mailchimpForm"
+  >
+    <div
+      class="unstackable fields"
+    >
+      <div
+        class="required ten wide field"
+      >
+        <div
+          class="ui input"
+        >
+          <input
+            aria-label="email"
+            id="email"
+            name="email"
+            placeholder="Email"
+            required=""
+            type="email"
+            value="admin@test.com"
+          />
+        </div>
+      </div>
+      <div
+        class="field"
+      >
+        <button
+          class="ui mini secondary button"
+        >
+          Subscribe
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+`;
+
+exports[`Subscribe renders correctly no endpoint 1`] = `null`;
+
+exports[`Subscribe renders correctly with endpoint 1`] = `
+<div
+  className="subscribe"
+>
+  <form
+    className="ui mini form"
+    id="mailchimpForm"
+    onSubmit={[Function]}
+  >
+    <div
+      className="unstackable fields"
+    >
+      <div
+        className="required ten wide field"
+      >
+        <div
+          className="ui input"
+        >
+          <input
+            aria-label="email"
+            id="email"
+            name="email"
+            onChange={[Function]}
+            placeholder="Email"
+            required={true}
+            type="email"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        className="field"
+      >
+        <button
+          className="ui mini secondary button"
+          onClick={[Function]}
+        >
+          Subscribe
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+`;

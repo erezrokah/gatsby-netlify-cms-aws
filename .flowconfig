@@ -1,0 +1,17 @@
+[ignore]
+
+.*/node_modules/jsonlint-mod/.*
+
+[include]
+
+[libs]
+flow-typed
+
+[lints]
+
+[options]
+module.name_mapper.extension='scss' -> '<PROJECT_ROOT>/flow/css-module-stub.js'
+module.name_mapper.extension='less' -> '<PROJECT_ROOT>/flow/css-module-stub.js'
+server.max_workers=4
+
+[strict]

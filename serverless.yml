@@ -1,0 +1,231 @@
+service: gatsby-netlify-cms-aws
+
+plugins:
+  - serverless-pseudo-parameters
+  - serverless-single-page-app-plugin
+  - serverless-s3-remover
+  - serverless-certificate-creator
+  - serverless-webpack
+  - serverless-iam-roles-per-function
+  - '@anttiviljami/serverless-stack-output'
+
+custom:
+  defaultStage: staging
+  defaultRegion: eu-west-1
+  currentStage: ${opt:stage, self:custom.defaultStage}
+  currentRegion: ${opt:region, self:custom.defaultRegion}
+
+  s3Bucket: ${self:service}-${self:custom.currentStage}
+  buildDirectory: public/
+
+  domainName:
+    staging: ${env:STAGING_DOMAIN}
+    prod: ${env:PROD_DOMAIN}
+  hostZoneId: ${env:HOST_ZONE_ID}
+  certInfoFileName: cert-info.yml
+
+  authSsmParameters:
+    GIT_HOSTNAME: '/${self:service}/oauth/${self:custom.currentStage}/GIT_HOSTNAME'
+    OAUTH_TOKEN_PATH: '/${self:service}/oauth/${self:custom.currentStage}/OAUTH_TOKEN_PATH'
+    OAUTH_AUTHORIZE_PATH: '/${self:service}/oauth/${self:custom.currentStage}/OAUTH_AUTHORIZE_PATH'
+    OAUTH_CLIENT_ID: '/${self:service}/oauth/${self:custom.currentStage}/OAUTH_CLIENT_ID'
+    OAUTH_CLIENT_SECRET: '/${self:service}/oauth/${self:custom.currentStage}/OAUTH_CLIENT_SECRET'
+    REDIRECT_URL: '/${self:service}/oauth/${self:custom.currentStage}/REDIRECT_URL'
+    OAUTH_SCOPES: '/${self:service}/oauth/${self:custom.currentStage}/OAUTH_SCOPES'
+
+  output:
+    handler: ./serverless-scripts/stackOutput.handler
+
+  webpack:
+    webpackConfig: ./authServer/configs/webpack.config.js
+    includeModules: true
+    packager: 'yarn'
+
+  customCertificate:
+    certificateName: ${self:custom.domainName.${self:custom.currentStage}}
+    hostedZoneId: ${self:custom.hostZoneId}
+    region: 'us-east-1' # required for using CloudFront with AWS Certificate Manager
+    writeCertInfoToFile: true
+    certInfoFileName: ${self:custom.certInfoFileName}
+
+  bucketCacheControl:
+    extensions:
+      - 'jpg'
+      - 'gif'
+      - 'png'
+      - 'gif'
+      - 'css'
+      - 'js'
+    cacheControl: 'public, max-age=31536000'
+
+    files:
+      - key: 'sw.js'
+        cacheControl: 'max-age=0'
+
+  remover:
+    buckets:
+      - ${self:custom.s3Bucket}
+
+package:
+  individually: true
+
+functions:
+  auth:
+    handler: ./authServer/auth.handler
+    events:
+      - http:
+          path: /auth
+          method: get
+          cors: true
+    environment:
+      GIT_HOSTNAME: ${self:custom.authSsmParameters.GIT_HOSTNAME}
+      OAUTH_TOKEN_PATH: ${self:custom.authSsmParameters.OAUTH_TOKEN_PATH}
+      OAUTH_AUTHORIZE_PATH: ${self:custom.authSsmParameters.OAUTH_AUTHORIZE_PATH}
+      OAUTH_CLIENT_ID: ${self:custom.authSsmParameters.OAUTH_CLIENT_ID}
+      OAUTH_CLIENT_SECRET: ${self:custom.authSsmParameters.OAUTH_CLIENT_SECRET}
+      REDIRECT_URL: ${self:custom.authSsmParameters.REDIRECT_URL}
+      OAUTH_SCOPES: ${self:custom.authSsmParameters.OAUTH_SCOPES}
+
+    iamRoleStatementsInherit: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - ssm:GetParameters
+        Resource: 'arn:aws:ssm:#{AWS::Region}:#{AWS::AccountId}:parameter/${self:service}/oauth/${self:custom.currentStage}/*'
+
+  callback:
+    handler: ./authServer/callback.handler
+    events:
+      - http:
+          path: /callback
+          method: get
+          cors: true
+    environment:
+      GIT_HOSTNAME: ${self:custom.authSsmParameters.GIT_HOSTNAME}
+      OAUTH_TOKEN_PATH: ${self:custom.authSsmParameters.OAUTH_TOKEN_PATH}
+      OAUTH_AUTHORIZE_PATH: ${self:custom.authSsmParameters.OAUTH_AUTHORIZE_PATH}
+      OAUTH_CLIENT_ID: ${self:custom.authSsmParameters.OAUTH_CLIENT_ID}
+      OAUTH_CLIENT_SECRET: ${self:custom.authSsmParameters.OAUTH_CLIENT_SECRET}
+      REDIRECT_URL: ${self:custom.authSsmParameters.REDIRECT_URL}
+      OAUTH_SCOPES: ${self:custom.authSsmParameters.OAUTH_SCOPES}
+
+    iamRoleStatementsInherit: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - ssm:GetParameters
+        Resource: 'arn:aws:ssm:#{AWS::Region}:#{AWS::AccountId}:parameter/${self:service}/oauth/${self:custom.currentStage}/*'
+
+  success:
+    handler: ./authServer/success.handler
+    events:
+      - http:
+          path: /success
+          method: get
+          cors: true
+  default:
+    handler: ./authServer/default.handler
+    events:
+      - http:
+          path: /
+          method: get
+          cors: true
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  tracing:
+    lambda: true
+  stage: ${self:custom.currentStage}
+  region: ${self:custom.currentRegion}
+
+  memorySize: 256
+  logRetentionInDays: 7
+
+  iamRoleStatements:
+    - Effect: 'Allow' # xray permissions (required)
+      Action:
+        - 'xray:PutTraceSegments'
+        - 'xray:PutTelemetryRecords'
+      Resource:
+        - '*'
+
+resources:
+  Resources:
+    WebAppS3Bucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:custom.s3Bucket}
+        AccessControl: PublicRead
+        WebsiteConfiguration:
+          IndexDocument: index.html
+          ErrorDocument: index.html
+    WebAppS3BucketPolicy:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        Bucket:
+          Ref: WebAppS3Bucket
+        PolicyDocument:
+          Statement:
+            - Sid: PublicReadGetObject
+              Effect: Allow
+              Principal: '*'
+              Action:
+                - s3:GetObject
+              Resource: arn:aws:s3:::${self:custom.s3Bucket}/*
+    WebAppCloudFrontDistribution:
+      Type: AWS::CloudFront::Distribution
+      DependsOn:
+        - WebAppS3Bucket
+      Properties:
+        DistributionConfig:
+          Origins:
+            - DomainName: ${self:custom.s3Bucket}.s3.amazonaws.com
+              Id: WebApp
+              CustomOriginConfig:
+                HTTPPort: 80
+                HTTPSPort: 443
+                OriginProtocolPolicy: https-only
+          Enabled: 'true'
+          HttpVersion: 'http2'
+          DefaultRootObject: index.html
+          CustomErrorResponses:
+            - ErrorCode: 404
+              ResponseCode: 200
+              ResponsePagePath: /index.html
+          Aliases:
+            - ${self:custom.domainName.${self:custom.currentStage}}
+          DefaultCacheBehavior:
+            AllowedMethods:
+              - DELETE
+              - GET
+              - HEAD
+              - OPTIONS
+              - PATCH
+              - POST
+              - PUT
+            Compress: true
+            TargetOriginId: WebApp
+            ForwardedValues:
+              QueryString: 'false'
+              Cookies:
+                Forward: none
+            ViewerProtocolPolicy: redirect-to-https
+          ViewerCertificate:
+            AcmCertificateArn: ${file(${self:custom.certInfoFileName}):CertificateArn}
+            SslSupportMethod: sni-only
+    WebsiteDNSName:
+      Type: AWS::Route53::RecordSetGroup
+      Properties:
+        HostedZoneId: ${self:custom.hostZoneId}
+        RecordSets:
+          - Name: ${self:custom.domainName.${self:custom.currentStage}}
+            Type: A
+            AliasTarget:
+              HostedZoneId: Z2FDTNDATAQYW2
+              DNSName: !GetAtt [WebAppCloudFrontDistribution, DomainName]
+              EvaluateTargetHealth: false
+  Outputs:
+    WebAppCloudFrontDistributionOutput:
+      Value:
+        'Fn::GetAtt': [WebAppCloudFrontDistribution, DomainName]

@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Author renders correctly 1`] = `
+<div
+  className="author"
+>
+  <a
+    href="/"
+  >
+    <div
+      className="author__photo gatsby-image-wrapper"
+      style={
+        Object {
+          "display": "inline-block",
+          "height": 75,
+          "overflow": "hidden",
+          "position": "relative",
+          "width": 75,
+        }
+      }
+    >
+      <img
+        alt=""
+        src="data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERA…nNfToI0vboLlrbFtvUBhy/spHFLp1B5OTXiAPuJj1KAFUE//Z"
+        style={
+          Object {
+            "height": "100%",
+            "left": 0,
+            "objectFit": "cover",
+            "objectPosition": "center",
+            "opacity": 1,
+            "position": "absolute",
+            "top": 0,
+            "transitionDelay": "500ms",
+            "width": "100%",
+          }
+        }
+      />
+      <picture>
+        <source
+          srcSet="/static/187f596e0e15990b5f4d94f326ba6759/06a10/aut…f596e0e15990b5f4d94f326ba6759/44086/author.jpg 2x"
+        />
+        <img
+          alt="test"
+          height={75}
+          loading="lazy"
+          onLoad={[Function]}
+          src="/static/187f596e0e15990b5f4d94f326ba6759/06a10/author.jpg"
+          srcSet="/static/187f596e0e15990b5f4d94f326ba6759/06a10/aut…f596e0e15990b5f4d94f326ba6759/44086/author.jpg 2x"
+          style={
+            Object {
+              "height": "100%",
+              "left": 0,
+              "objectFit": "cover",
+              "objectPosition": "center",
+              "opacity": 0,
+              "position": "absolute",
+              "top": 0,
+              "transition": "opacity 500ms",
+              "width": "100%",
+            }
+          }
+          width={75}
+        />
+      </picture>
+      <noscript
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<picture><source srcset=\\"/static/187f596e0e15990b5f4d94f326ba6759/06a10/aut…f596e0e15990b5f4d94f326ba6759/44086/author.jpg 2x\\" /><img loading=\\"lazy\\" width=\\"75\\" height=\\"75\\" srcset=\\"/static/187f596e0e15990b5f4d94f326ba6759/06a10/aut…f596e0e15990b5f4d94f326ba6759/44086/author.jpg 2x\\" src=\\"/static/187f596e0e15990b5f4d94f326ba6759/06a10/author.jpg\\" alt=\\"test\\" style=\\"position:absolute;top:0;left:0;opacity:1;width:100%;height:100%;object-fit:cover;object-position:center\\"/></picture>",
+          }
+        }
+      />
+    </div>
+  </a>
+  <h2
+    className="author__title"
+  >
+    <a
+      className="author__title-link"
+      href="/"
+    >
+      test
+    </a>
+  </h2>
+  <p
+    className="author__subtitle"
+  >
+    test
+  </p>
+</div>
+`;

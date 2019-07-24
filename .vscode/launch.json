@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Deploy",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "node",
+      "args": ["--inspect-brk", "${env:NVM_BIN}/serverless", "deploy"],
+      "cwd": "${workspaceRoot}",
+      "protocol": "inspector",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    }
+  ]
+}

@@ -1,0 +1,247 @@
+version: 2.1
+
+orbs:
+  aws-cli: circleci/aws-cli@0.1.13
+
+aliases:
+  - &container_config
+    docker:
+      - image: circleci/node:dubnium-browsers
+
+    working_directory: ~/repo
+
+  - &checkout checkout
+
+  - &deploy_preview_filters
+    filters:
+      branches:
+        only: /^cms.*/
+
+  - &deploy_staging_filters
+    filters:
+      branches:
+        ignore:
+          - /master/
+          - /^cms.*/
+
+  - &deploy_prod_filters
+    filters:
+      branches:
+        only: master
+
+  - &save_cache
+    save_cache:
+      paths:
+        - node_modules
+      key: dependencies-cache-v1-{{ checksum "yarn.lock" }}
+
+  - &restore_cache
+    restore_cache:
+      keys:
+        - dependencies-cache-v1-{{ checksum "yarn.lock" }}
+        - dependencies-cache-v1
+
+  - &install_serverless_cli
+    run:
+      name: Install Serverless CLI
+      command: sudo npm i -g serverless
+
+  - &configure_aws_cli
+    aws-cli/configure:
+      profile-name: default
+      aws-access-key-id: AWS_ACCESS_KEY_ID
+      aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+      configure-default-region: false
+
+  - &install_serverless_cli
+    run:
+      name: Install Serverless CLI
+      command: sudo npm i -g serverless
+
+  - &fix_mimetypes
+    run:
+      # https://github.com/aws/aws-cli/issues/1249
+      name: Fix mimetypes detection for yaml files
+      command: |
+        echo 'application/x-yaml yaml yml' | sudo tee -a /etc/mime.types
+
+  - &create_cert
+    run:
+      name: Create Certificate
+      command: yarn create-cert --stage $STAGE
+      no_output_timeout: 30m
+
+  - &run_deploy
+    run:
+      name: Run Deploy
+      command: yarn deploy --stage $STAGE
+      no_output_timeout: 30m
+
+  - &run_build
+    run:
+      name: Run Build
+      command: yarn build
+
+  - &run_publish
+    run:
+      name: Run Publish
+      command: yarn run publish --stage $STAGE
+
+  - &run_lighthouse
+    run:
+      name: Run Lighthouse
+      command: yarn lighthouse
+
+  - &store_test_results
+    store_test_results:
+      path: jest/reports
+
+  - &store_lighthouse_results
+    store_artifacts:
+      path: jest/reports/lighthouse
+      destination: lighthouse
+
+jobs:
+  install:
+    <<: *container_config
+    steps:
+      - *checkout
+      - *restore_cache
+      - run:
+          name: Install dependencies
+          command: yarn install --frozen-lockfile
+      - *save_cache
+
+  test:
+    <<: *container_config
+    steps:
+      - *checkout
+      - *restore_cache
+      - run:
+          name: Run linter
+          command: yarn lint
+      - run:
+          name: Run code formatter
+          command: yarn prettier:ci
+      - run:
+          name: Run tests
+          command: yarn test --runInBand --no-cache
+      - *store_test_results
+
+  deploy-preview:
+    <<: *container_config
+    steps:
+      - *checkout
+      - *restore_cache
+
+      - run:
+          name: Set Commit Status To Pending
+          command: >
+            curl
+            -d "{\"state\":\"pending\", \"target_url\":\"https://$STAGING_DOMAIN\", \"description\":\"Generating Preview Site\", \"context\":\"ci/preview\"}" 
+            -H "Content-Type: application/json" 
+            -H "Authorization: token $GITHUB_API_TOKEN" 
+            -X POST https://api.github.com/repos/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/statuses/$CIRCLE_SHA1
+
+      - *install_serverless_cli
+      - aws-cli/install
+      - *configure_aws_cli
+      - *fix_mimetypes
+      # only run build and publish (no need to re-deploy the stack on content changes)
+      - run:
+          name: Define Staging .env file
+          command: |
+            echo "GOOGLE_ANALYTICS_ID=$STAGING_GOOGLE_ANALYTICS_ID" >> .env
+            echo "DISQUS_SHORT_NAME=$STAGING_DISQUS_SHORT_NAME" >> .env
+            echo "GATSBY_MAILCHIMP_ENDPOINT=" >> .env
+            echo "DOMAIN=$STAGING_DOMAIN" >> .env
+      - *run_build
+      - *run_publish
+
+      - run:
+          name: Set Commit Status To Success
+          command: >
+            curl
+            -d "{\"state\":\"success\", \"target_url\":\"https://$STAGING_DOMAIN\", \"description\":\"Preview Site Is Ready\", \"context\":\"ci/preview\"}" 
+            -H "Content-Type: application/json" 
+            -H "Authorization: token $GITHUB_API_TOKEN" 
+            -X POST https://api.github.com/repos/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/statuses/$CIRCLE_SHA1
+
+    environment:
+      STAGE: staging
+
+  deploy-staging:
+    <<: *container_config
+    steps:
+      - *checkout
+      - *restore_cache
+      - *install_serverless_cli
+      - aws-cli/install
+      - *configure_aws_cli
+      - *fix_mimetypes
+      - *create_cert
+      - *run_deploy
+      - *run_build
+      - *run_publish
+      - *run_lighthouse
+      - *store_lighthouse_results
+
+    environment:
+      STAGE: staging
+
+  deploy-prod:
+    <<: *container_config
+    steps:
+      - *checkout
+      - *restore_cache
+      - *install_serverless_cli
+      - aws-cli/install
+      - *configure_aws_cli
+      - *fix_mimetypes
+      - *create_cert
+      - *run_deploy
+      - *run_build
+      - *run_publish
+      - *run_lighthouse
+      - *store_lighthouse_results
+
+    environment:
+      STAGE: prod
+
+workflows:
+  version: 2
+
+  deploy-preview:
+    jobs:
+      - install:
+          <<: *deploy_preview_filters
+      - deploy-preview:
+          requires:
+            - install
+          <<: *deploy_preview_filters
+
+  deploy-staging:
+    jobs:
+      - install:
+          <<: *deploy_staging_filters
+      - test:
+          requires:
+            - install
+          <<: *deploy_staging_filters
+      - deploy-staging:
+          requires:
+            - test
+          <<: *deploy_staging_filters
+
+  deploy-prod:
+    jobs:
+      - install:
+          <<: *deploy_prod_filters
+      - test:
+          requires:
+            - install
+          <<: *deploy_prod_filters
+      - deploy-prod:
+          requires:
+            - test
+          <<: *deploy_prod_filters
