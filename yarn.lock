@@ -15603,7 +15603,7 @@ serverless-s3-remover@^0.6.0:
     prompt "^1.0.0"
 
 "serverless-single-page-app-plugin@file:./serverless-single-page-app-plugin":
-  version "1.0.2"
+  version "1.0.3"
 
 serverless-webpack@^5.3.1:
   version "5.3.1"

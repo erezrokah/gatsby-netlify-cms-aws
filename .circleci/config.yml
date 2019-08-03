@@ -138,7 +138,7 @@ jobs:
           name: Set Commit Status To Pending
           command: >
             curl
-            -d "{\"state\":\"pending\", \"target_url\":\"https://$STAGING_DOMAIN\", \"description\":\"Generating Preview Site\", \"context\":\"ci/preview\"}" 
+            -d "{\"state\":\"pending\", \"target_url\":\"https://gatsby-netlify-cms-aws-$CIRCLE_SHA1.s3.amazonaws.com/index.html\", \"description\":\"Generating Preview Site\", \"context\":\"ci/preview\"}" 
             -H "Content-Type: application/json" 
             -H "Authorization: token $GITHUB_API_TOKEN" 
             -X POST https://api.github.com/repos/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/statuses/$CIRCLE_SHA1
@@ -147,28 +147,22 @@ jobs:
       - aws-cli/install
       - *configure_aws_cli
       - *fix_mimetypes
-      # only run build and publish (no need to re-deploy the stack on content changes)
-      - run:
-          name: Define Staging .env file
-          command: |
-            echo "GOOGLE_ANALYTICS_ID=$STAGING_GOOGLE_ANALYTICS_ID" >> .env
-            echo "DISQUS_SHORT_NAME=$STAGING_DISQUS_SHORT_NAME" >> .env
-            echo "GATSBY_MAILCHIMP_ENDPOINT=" >> .env
-            echo "DOMAIN=$STAGING_DOMAIN" >> .env
       - *run_build
-      - *run_publish
+      - run:
+          name: Run Publish Preview
+          command: yarn run publish --stage $STAGE --s3Bucket $CIRCLE_SHA1
 
       - run:
           name: Set Commit Status To Success
           command: >
             curl
-            -d "{\"state\":\"success\", \"target_url\":\"https://$STAGING_DOMAIN\", \"description\":\"Preview Site Is Ready\", \"context\":\"ci/preview\"}" 
+            -d "{\"state\":\"success\", \"target_url\":\"https://gatsby-netlify-cms-aws-$CIRCLE_SHA1.s3.amazonaws.com/index.html\", \"description\":\"Preview Site Is Ready\", \"context\":\"ci/preview\"}" 
             -H "Content-Type: application/json" 
             -H "Authorization: token $GITHUB_API_TOKEN" 
             -X POST https://api.github.com/repos/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/statuses/$CIRCLE_SHA1
 
     environment:
-      STAGE: staging
+      STAGE: preview
 
   deploy-staging:
     <<: *container_config
