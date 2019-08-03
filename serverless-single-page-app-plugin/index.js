@@ -244,10 +244,68 @@ class ServerlessPlugin {
     }
   }
 
+  async publishToPreviewBucket() {
+    const { s3Bucket } = this.serverless.variables.service.custom;
+    const provider = this.serverless.getProvider('aws');
+    const name = `${
+      this.serverless.service.getServiceObject().name
+    }-${s3Bucket}`;
+
+    this.serverless.cli.log(`Creating preview bucket ${name}`);
+    this.serverless.variables.service.custom.s3Bucket = name;
+
+    try {
+      await provider.request('S3', 'createBucket', {
+        Bucket: name,
+        ACL: 'public-read',
+      });
+      await provider.request('S3', 'putBucketPolicy', {
+        Bucket: name,
+        Policy: JSON.stringify({
+          Statement: [
+            {
+              Sid: 'PublicReadGetObject',
+              Effect: 'Allow',
+              Principal: '*',
+              Action: ['s3:GetObject'],
+              Resource: `arn:aws:s3:::${name}/*`,
+            },
+          ],
+        }),
+      });
+      await provider.request('S3', 'putBucketWebsite', {
+        Bucket: name,
+        WebsiteConfiguration: {
+          ErrorDocument: {
+            Key: 'index.html',
+          },
+          IndexDocument: {
+            Suffix: 'index.html',
+          },
+        },
+      });
+      this.serverless.cli.log(`Done creating preview bucket ${name}`);
+    } catch (e) {
+      if (e.providerError.code === 'BucketAlreadyOwnedByYou') {
+        this.serverless.cli.log(`Preview bucket ${name} already exists`);
+        return;
+      }
+      throw e;
+    }
+  }
+
   async publishSite() {
+    const { stage } = this.options;
+    if (stage === 'preview') {
+      await this.publishToPreviewBucket();
+    }
+
     await this.syncDirectory();
     await this.setCacheControl();
-    await this.invalidateCache();
+
+    if (stage !== 'preview') {
+      await this.invalidateCache();
+    }
   }
 }
 
