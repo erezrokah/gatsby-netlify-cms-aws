@@ -78,8 +78,9 @@ functions:
   cleanup:
     handler: backend/previewCleanup.handler
     events:
-      - schedule: rate(1 day)
-        enabled: ${self:custom.previewCleanupFunctionEnabled.${self:custom.currentStage}}
+      - schedule:
+          rate: rate(1 day)
+          enabled: ${self:custom.previewCleanupFunctionEnabled.${self:custom.currentStage}}
     environment:
       BUCKET_REGEX: ${self:service}-preview-\d+
       PREVIEW_EXPIRY_SECONDS: 2678400
