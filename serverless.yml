@@ -14,8 +14,9 @@ custom:
   defaultRegion: eu-west-1
   currentStage: ${opt:stage, self:custom.defaultStage}
   currentRegion: ${opt:region, self:custom.defaultRegion}
+  defaultBucket: ${self:service}-${self:custom.currentStage}
 
-  s3Bucket: ${opt:s3Bucket, ${self:service}-${self:custom.currentStage}}
+  s3Bucket: ${opt:s3Bucket, $self:custom.defaultBucket}
   buildDirectory: public/
 
   domainName:
