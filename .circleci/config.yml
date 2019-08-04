@@ -135,10 +135,14 @@ jobs:
       - *restore_cache
 
       - run:
+          name: Extract PR number from PR Url
+          command: if [[ $CIRCLE_PULL_REQUEST =~ pull/([0-9]+) ]]; then echo export PR_NUMBER=${BASH_REMATCH[1]}; fi >> $BASH_ENV
+
+      - run:
           name: Set Commit Status To Pending
           command: >
             curl
-            -d "{\"state\":\"pending\", \"target_url\":\"https://gatsby-netlify-cms-aws-$CIRCLE_SHA1.s3.amazonaws.com/index.html\", \"description\":\"Generating Preview Site\", \"context\":\"ci/preview\"}" 
+            -d "{\"state\":\"pending\", \"target_url\":\"https://gatsby-netlify-cms-aws-preview-$PR_NUMBER.s3.amazonaws.com/index.html\", \"description\":\"Generating Preview Site\", \"context\":\"ci/preview\"}" 
             -H "Content-Type: application/json" 
             -H "Authorization: token $GITHUB_API_TOKEN" 
             -X POST https://api.github.com/repos/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/statuses/$CIRCLE_SHA1
@@ -150,13 +154,13 @@ jobs:
       - *run_build
       - run:
           name: Run Publish Preview
-          command: yarn run publish --stage $STAGE --s3Bucket $CIRCLE_SHA1
+          command: yarn run publish --stage $STAGE --s3Bucket preview-$PR_NUMBER
 
       - run:
           name: Set Commit Status To Success
           command: >
             curl
-            -d "{\"state\":\"success\", \"target_url\":\"https://gatsby-netlify-cms-aws-$CIRCLE_SHA1.s3.amazonaws.com/index.html\", \"description\":\"Preview Site Is Ready\", \"context\":\"ci/preview\"}" 
+            -d "{\"state\":\"success\", \"target_url\":\"https://gatsby-netlify-cms-aws-preview-$PR_NUMBER.s3.amazonaws.com/index.html\", \"description\":\"Preview Site Is Ready\", \"context\":\"ci/preview\"}" 
             -H "Content-Type: application/json" 
             -H "Authorization: token $GITHUB_API_TOKEN" 
             -X POST https://api.github.com/repos/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/statuses/$CIRCLE_SHA1
