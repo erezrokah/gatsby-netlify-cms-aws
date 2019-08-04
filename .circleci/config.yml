@@ -33,13 +33,13 @@ aliases:
     save_cache:
       paths:
         - node_modules
-      key: dependencies-cache-v3-{{ checksum "yarn.lock" }}
+      key: dependencies-cache-v4-{{ checksum "yarn.lock" }}
 
   - &restore_cache
     restore_cache:
       keys:
-        - dependencies-cache-v3-{{ checksum "yarn.lock" }}
-        - dependencies-cache-v3
+        - dependencies-cache-v4-{{ checksum "yarn.lock" }}
+        - dependencies-cache-v4
 
   - &install_serverless_cli
     run:
