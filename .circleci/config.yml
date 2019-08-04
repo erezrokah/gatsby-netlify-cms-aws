@@ -158,7 +158,7 @@ jobs:
       - *run_build
       - run:
           name: Run Publish Preview
-          command: yarn run publish --stage $STAGE --s3Bucket preview-$PR_NUMBER
+          command: yarn run publish --stage $STAGE --previewBucket preview-$PR_NUMBER
 
       - run:
           name: Set Commit Status To Success
