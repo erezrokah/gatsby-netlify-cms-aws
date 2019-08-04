@@ -20,7 +20,8 @@ custom:
 
   previewCleanupFunctionEnabled:
     prod: true
-    other: false
+    staging: false
+    preview: false
 
   domainName:
     staging: ${env:STAGING_DOMAIN}
@@ -78,7 +79,7 @@ functions:
     handler: backend/previewCleanup.handler
     events:
       - schedule: rate(1 day)
-        enabled: ${self:custom.previewCleanupFunctionEnabled.${self:custom.currentStage}, $self.previewCleanupFunctionEnabled.other}
+        enabled: ${self:custom.previewCleanupFunctionEnabled.${self:custom.currentStage}}
     environment:
       BUCKET_REGEX: ${self:service}-preview-\d+
       PREVIEW_EXPIRY_SECONDS: 2678400
