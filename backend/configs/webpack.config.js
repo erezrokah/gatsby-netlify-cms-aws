@@ -15,6 +15,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.json', '.ts', '.tsx'],
   },
+  externals: ['aws-sdk/clients/s3'],
   module: {
     rules: [
       {

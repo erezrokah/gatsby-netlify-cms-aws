@@ -15,8 +15,12 @@ custom:
   currentStage: ${opt:stage, self:custom.defaultStage}
   currentRegion: ${opt:region, self:custom.defaultRegion}
 
-  s3Bucket: ${opt:s3Bucket, ${self:service}-${self:custom.currentStage}}
+  s3Bucket: ${self:service}-${self:custom.currentStage}
   buildDirectory: public/
+
+  previewCleanupFunctionEnabled:
+    prod: true
+    other: false
 
   domainName:
     staging: ${env:STAGING_DOMAIN}
@@ -37,7 +41,7 @@ custom:
     handler: ./serverless-scripts/stackOutput.handler
 
   webpack:
-    webpackConfig: ./authServer/configs/webpack.config.js
+    webpackConfig: ./backend/configs/webpack.config.js
     includeModules: true
     packager: 'yarn'
 
@@ -70,8 +74,25 @@ package:
   individually: true
 
 functions:
+  cleanup:
+    handler: backend/previewCleanup.handler
+    events:
+      - schedule: rate(1 day)
+        enabled: ${self:custom.previewCleanupFunctionEnabled.${self:custom.currentStage}, $self.previewCleanupFunctionEnabled.other}
+    environment:
+      BUCKET_REGEX: ${self:service}-preview-\d+
+      PREVIEW_EXPIRY_SECONDS: 2678400
+
+    iamRoleStatementsInherit: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - s3:ListAllMyBuckets
+          - s3:DeleteBucket
+        Resource: 'arn:aws:s3:::*'
+
   auth:
-    handler: ./authServer/auth.handler
+    handler: backend/auth.handler
     events:
       - http:
           path: /auth
@@ -94,7 +115,7 @@ functions:
         Resource: 'arn:aws:ssm:#{AWS::Region}:#{AWS::AccountId}:parameter/${self:service}/oauth/${self:custom.currentStage}/*'
 
   callback:
-    handler: ./authServer/callback.handler
+    handler: backend/callback.handler
     events:
       - http:
           path: /callback
@@ -117,14 +138,14 @@ functions:
         Resource: 'arn:aws:ssm:#{AWS::Region}:#{AWS::AccountId}:parameter/${self:service}/oauth/${self:custom.currentStage}/*'
 
   success:
-    handler: ./authServer/success.handler
+    handler: backend/success.handler
     events:
       - http:
           path: /success
           method: get
           cors: true
   default:
-    handler: ./authServer/default.handler
+    handler: backend/default.handler
     events:
       - http:
           path: /

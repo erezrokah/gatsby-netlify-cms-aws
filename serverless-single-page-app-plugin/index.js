@@ -245,11 +245,11 @@ class ServerlessPlugin {
   }
 
   async publishToPreviewBucket() {
-    const { s3Bucket } = this.serverless.variables.service.custom;
+    const { previewBucket } = this.options;
     const provider = this.serverless.getProvider('aws');
     const name = `${
       this.serverless.service.getServiceObject().name
-    }-${s3Bucket}`;
+    }-${previewBucket}`;
 
     this.serverless.cli.log(`Creating preview bucket ${name}`);
     this.serverless.variables.service.custom.s3Bucket = name;
