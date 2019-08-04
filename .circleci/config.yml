@@ -151,6 +151,10 @@ jobs:
       - aws-cli/install
       - *configure_aws_cli
       - *fix_mimetypes
+      - run:
+          name: Define Preview .env file
+          command: |
+            echo "DOMAIN=gatsby-netlify-cms-aws-preview-$PR_NUMBER.s3.amazonaws.com" >> .env
       - *run_build
       - run:
           name: Run Publish Preview
