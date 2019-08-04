@@ -91,6 +91,7 @@ functions:
         Action:
           - s3:ListAllMyBuckets
           - s3:DeleteBucket
+          - s3:DeleteObject
         Resource: 'arn:aws:s3:::*'
 
   auth:
