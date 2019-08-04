@@ -125,7 +125,7 @@ jobs:
           command: yarn prettier:ci
       - run:
           name: Run tests
-          command: yarn test --runInBand --no-cache
+          command: yarn test:ci
       - *store_test_results
 
   deploy-preview:
