@@ -142,7 +142,7 @@ jobs:
           name: Set Commit Status To Pending
           command: >
             curl
-            -d "{\"state\":\"pending\", \"target_url\":\"https://gatsby-netlify-cms-aws-preview-$PR_NUMBER.s3.amazonaws.com/index.html\", \"description\":\"Generating Preview Site\", \"context\":\"ci/preview\"}" 
+            -d "{\"state\":\"pending\", \"target_url\":\"https://gatsby-netlify-cms-aws-preview-$PR_NUMBER.s3.amazonaws.com\", \"description\":\"Generating Preview Site\", \"context\":\"ci/preview\"}" 
             -H "Content-Type: application/json" 
             -H "Authorization: token $GITHUB_API_TOKEN" 
             -X POST https://api.github.com/repos/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/statuses/$CIRCLE_SHA1
@@ -164,7 +164,7 @@ jobs:
           name: Set Commit Status To Success
           command: >
             curl
-            -d "{\"state\":\"success\", \"target_url\":\"https://gatsby-netlify-cms-aws-preview-$PR_NUMBER.s3.amazonaws.com/index.html\", \"description\":\"Preview Site Is Ready\", \"context\":\"ci/preview\"}" 
+            -d "{\"state\":\"success\", \"target_url\":\"https://gatsby-netlify-cms-aws-preview-$PR_NUMBER.s3.amazonaws.com\", \"description\":\"Preview Site Is Ready\", \"context\":\"ci/preview\"}" 
             -H "Content-Type: application/json" 
             -H "Authorization: token $GITHUB_API_TOKEN" 
             -X POST https://api.github.com/repos/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/statuses/$CIRCLE_SHA1
