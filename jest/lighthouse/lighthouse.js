@@ -30,6 +30,7 @@ describe('Lighthouse', () => {
           case 'first-meaningful-paint':
           case 'max-potential-fid':
           case 'speed-index':
+          case 'mainthread-work-breakdown':
             expect(score).toBeGreaterThanOrEqual(0.95);
             break;
           case 'first-cpu-idle':
