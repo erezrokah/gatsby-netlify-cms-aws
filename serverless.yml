@@ -55,17 +55,12 @@ custom:
 
   bucketCacheControl:
     extensions:
-      - 'jpg'
-      - 'gif'
-      - 'png'
-      - 'gif'
-      - 'css'
-      - 'js'
-    cacheControl: 'public, max-age=31536000'
+      - '*'
+    cacheControl: 'public, max-age=31536000, immutable'
 
     files:
       - key: 'sw.js'
-        cacheControl: 'max-age=0'
+        cacheControl: 'public, max-age=0, must-revalidate'
 
   remover:
     buckets:
@@ -183,7 +178,7 @@ resources:
         AccessControl: PublicRead
         WebsiteConfiguration:
           IndexDocument: index.html
-          ErrorDocument: index.html
+          ErrorDocument: 404.html
     WebAppS3BucketPolicy:
       Type: AWS::S3::BucketPolicy
       Properties:
@@ -204,19 +199,19 @@ resources:
       Properties:
         DistributionConfig:
           Origins:
-            - DomainName: ${self:custom.s3Bucket}.s3.amazonaws.com
+            - DomainName: ${self:custom.s3Bucket}.s3-website-${self:custom.currentRegion}.amazonaws.com
               Id: WebApp
               CustomOriginConfig:
                 HTTPPort: 80
                 HTTPSPort: 443
-                OriginProtocolPolicy: https-only
+                OriginProtocolPolicy: http-only
           Enabled: 'true'
           HttpVersion: 'http2'
           DefaultRootObject: index.html
           CustomErrorResponses:
             - ErrorCode: 404
               ResponseCode: 200
-              ResponsePagePath: /index.html
+              ResponsePagePath: /404.html
           Aliases:
             - ${self:custom.domainName.${self:custom.currentStage}}
           DefaultCacheBehavior:
