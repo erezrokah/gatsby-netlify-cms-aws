@@ -15,7 +15,6 @@ describe('previewCleanup', () => {
     const { handler } = require('./previewCleanup');
     const { listBuckets, deleteBuckets } = require('./s3');
 
-    // @ts-ignore
     await handler();
 
     expect(listBuckets).toHaveBeenCalledTimes(0);

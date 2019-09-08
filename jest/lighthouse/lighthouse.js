@@ -15,7 +15,8 @@ describe('Lighthouse', () => {
   const reports = path.join(__dirname, '..', 'reports', 'lighthouse');
   const { audits } = fs.readJSONSync(path.join(reports, 'lighthouse.json'));
   const auditResults: Audit[] = Object.keys(audits).map(key => audits[key]);
-  for (let result of auditResults) {
+
+  for (var result of auditResults) {
     const { id, title, score } = result;
     if (score !== null) {
       test(`${title} - ${id}`, () => {
