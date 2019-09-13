@@ -94,6 +94,7 @@ module.exports = {
               }
             `,
             output: '/rss.xml',
+            title: siteConfig.title,
           },
         ],
       },
@@ -125,7 +126,7 @@ module.exports = {
             resolve: 'gatsby-remark-external-links',
             options: {
               target: '_blank',
-              rel: 'noopener noreferrer nofollow',
+              rel: 'noopener noreferrer',
             },
           },
           {
