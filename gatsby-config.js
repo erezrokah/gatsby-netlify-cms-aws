@@ -94,6 +94,7 @@ module.exports = {
               }
             `,
             output: '/rss.xml',
+            title: siteConfig.title,
           },
         ],
       },
