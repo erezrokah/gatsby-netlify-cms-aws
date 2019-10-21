@@ -59,8 +59,6 @@ Authorization callback URL: https://*****************.eu-west-1.amazonaws.com/**
 
 ## Develop
 
-Make sure `static/admin/config.yml` has updated values of `backend.repo` and then run:
-
 ```bash
 yarn develop
 ```
