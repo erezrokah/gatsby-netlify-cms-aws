@@ -69,7 +69,7 @@ yarn develop
 
 [Create a CircleCI Personal API Token](https://circleci.com/account/api)
 
-[Create a GitHub Personal access tokens](https://github.com/settings/tokens/new) with 'repo:status' scope
+[Create a GitHub Personal access tokens](https://github.com/settings/tokens/new) with `repo:status` scope
 
 Run (update with relevant values)
 
