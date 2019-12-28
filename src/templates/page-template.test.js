@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import renderer from 'react-test-renderer';
+import { act } from 'react-dom/test-utils';
 import { useStaticQuery, StaticQuery } from 'gatsby';
 import PageTemplate from './page-template';
 import siteMetadata from '../../jest/__fixtures__/site-metadata';
@@ -24,7 +25,9 @@ describe('PageTemplate', () => {
   });
 
   it('renders correctly', () => {
-    const tree = renderer.create(<PageTemplate {...props} />).toJSON();
-    expect(tree).toMatchSnapshot();
+    act(() => {
+      const tree = renderer.create(<PageTemplate {...props} />).toJSON();
+      expect(tree).toMatchSnapshot();
+    });
   });
 });

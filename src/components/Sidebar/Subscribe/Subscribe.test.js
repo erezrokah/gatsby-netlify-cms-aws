@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import renderer from 'react-test-renderer';
+import { act } from 'react-dom/test-utils';
 import { render, fireEvent, cleanup } from '@testing-library/react';
 import Subscribe from './Subscribe';
 
@@ -32,18 +33,24 @@ describe('Subscribe', () => {
 
   it('renders correctly no endpoint', () => {
     process.env.GATSBY_MAILCHIMP_ENDPOINT = '';
-    const tree = renderer.create(<Subscribe />).toJSON();
-    expect(tree).toMatchSnapshot();
+    act(() => {
+      const tree = renderer.create(<Subscribe />);
+      expect(tree.toJSON()).toMatchSnapshot();
+    });
   });
 
   it('renders correctly with endpoint', () => {
-    const tree = renderer.create(<Subscribe />).toJSON();
-    expect(tree).toMatchSnapshot();
+    act(() => {
+      const tree = renderer.create(<Subscribe />);
+      expect(tree.toJSON()).toMatchSnapshot();
+    });
   });
 
   test('Should update email with value', () => {
     const { input, container } = setup();
-    fireEvent.change(input, { target: { value: 'admin@test.com' } });
+    act(() => {
+      fireEvent.change(input, { target: { value: 'admin@test.com' } });
+    });
     expect(container.firstChild).toMatchSnapshot();
   });
 
@@ -56,6 +63,7 @@ describe('Subscribe', () => {
 
     const { input, form, container } = setup();
     const email = 'admin@test.com';
+
     fireEvent.change(input, { target: { value: email } });
     fireEvent.submit(form);
 

@@ -43,7 +43,7 @@ const Subscribe = () => {
     event.preventDefault();
     setState({ ...state, status: 'sending', message: '' });
 
-    let newState = null;
+    let newState = state;
     try {
       const emailEncoded = encodeURIComponent(state.email);
       const queryParams = `&EMAIL=${emailEncoded}`;
