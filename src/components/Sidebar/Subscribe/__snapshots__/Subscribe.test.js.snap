@@ -231,6 +231,7 @@ exports[`Subscribe renders correctly with endpoint 1`] = `
           className="ui input"
         >
           <input
+            aria-describedby={null}
             aria-label="email"
             id="email"
             name="email"
@@ -246,6 +247,7 @@ exports[`Subscribe renders correctly with endpoint 1`] = `
         className="field"
       >
         <button
+          aria-describedby={null}
           className="ui mini secondary button"
           onClick={[Function]}
         >
