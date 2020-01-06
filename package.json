@@ -99,7 +99,7 @@
     "node-sass": "^4.13.0",
     "normalize-scss": "^7.0.1",
     "prism-themes": "^1.3.0",
-    "prismjs": "^1.16.0",
+    "prismjs": "^1.18.0",
     "react": "^16.12.0",
     "react-disqus-comments": "^1.4.0",
     "react-dom": "^16.12.0",
