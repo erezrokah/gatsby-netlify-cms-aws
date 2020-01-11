@@ -1,6 +1,7 @@
 {
   "extends": [
-    "config:base"
+    "config:base",
+    "schedule:weekly"
   ],
   "packageRules": [
     {
@@ -17,9 +18,13 @@
     }
   ],
   "labels": ["renovate"],
-  "prHourlyLimit": 4,
-  "prConcurrentLimit": 16,
-  "rangeStrategy": "bump",
-  "bumpVersion": null,
+  "rangeStrategy": "update-lockfile",
+  "automerge": true,
+  "major": {
+    "automerge": false
+  },
+  "lockFileMaintenance": {
+    "enabled": true
+  },
   "semanticCommits": true
 }
