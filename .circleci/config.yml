@@ -47,7 +47,7 @@ aliases:
       command: sudo npm i -g serverless
 
   - &configure_aws_cli
-    aws-cli/configure:
+    aws-cli/setup:
       profile-name: default
       aws-access-key-id: AWS_ACCESS_KEY_ID
       aws-secret-access-key: AWS_SECRET_ACCESS_KEY
