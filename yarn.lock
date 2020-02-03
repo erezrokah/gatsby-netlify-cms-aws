@@ -1029,7 +1029,7 @@
   resolved "https://registry.yarnpkg.com/@hapi/formula/-/formula-1.2.0.tgz#994649c7fea1a90b91a0a1e6d983523f680e10cd"
   integrity sha512-UFbtbGPjstz0eWHb+ga/GM3Z9EzqKXFWIbSOFURU0A/Gku0Bky4bCk9/h//K2Xr3IrCfjFNhMm4jyZ5dbCewGA==
 
-"@hapi/hoek@8.x.x", "@hapi/hoek@^8.2.4", "@hapi/hoek@^8.3.0":
+"@hapi/hoek@8.x.x", "@hapi/hoek@^8.2.4", "@hapi/hoek@^8.3.0", "@hapi/hoek@^8.5.0":
   version "8.5.0"
   resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-8.5.0.tgz#2f9ce301c8898e1c3248b0a8564696b24d1a9a5a"
   integrity sha512-7XYT10CZfPsH7j9F1Jmg1+d0ezOux2oM2GfArAzLwWe4mE2Dr3hVjsAL6+TFY49RRJlCdJDMw3nJsLFroTc8Kw==
@@ -1044,7 +1044,7 @@
     "@hapi/hoek" "8.x.x"
     "@hapi/topo" "3.x.x"
 
-"@hapi/joi@^16.1.7":
+"@hapi/joi@^16.1.8":
   version "16.1.8"
   resolved "https://registry.yarnpkg.com/@hapi/joi/-/joi-16.1.8.tgz#84c1f126269489871ad4e2decc786e0adef06839"
   integrity sha512-wAsVvTPe+FwSrsAurNt5vkg3zo+TblvC5Bb1zMVK6SJzZqw9UrJnexxR+76cpePmtUZKHAPxcQ2Bf7oVHyahhg==
@@ -5253,7 +5253,7 @@ data-urls@^1.0.0:
     whatwg-mimetype "^2.2.0"
     whatwg-url "^7.0.0"
 
-date-fns@^2.0.1, date-fns@^2.4.1:
+date-fns@^2.0.1, date-fns@^2.9.0:
   version "2.9.0"
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.9.0.tgz#d0b175a5c37ed5f17b97e2272bbc1fa5aec677d2"
   integrity sha512-khbFLu/MlzLjEzy9Gh8oY1hNt/Dvxw3J6Rbc28cVoYWQaC1S3YI4xwkF9ZWcjDLscbZlY9hISMr66RFzZagLsA==
@@ -16480,14 +16480,14 @@ simple-get@^3.0.3, simple-get@^3.1.0:
     simple-concat "^1.0.0"
 
 simple-oauth2@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/simple-oauth2/-/simple-oauth2-3.1.0.tgz#5c5287ff49f9586d0b233a26f7351f6bbc547a7f"
-  integrity sha512-zJ8tYLnmzMkaC5Vo4qBnRWsQa5MKKjNY4yIjaHBW5qZvatYgHrfsHe3VRx7rGTUqwf2PLjbKlwW3GKrSlZmKHQ==
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/simple-oauth2/-/simple-oauth2-3.3.0.tgz#c97c48a809669d6f303b166397ba925a25474215"
+  integrity sha512-mBWkLHH7XY6WSy271j6CeEHuGN61K/TeUawXpX0K9tsLnlrqt9bpXYR/tYMI6+o6QWqSdvVaItGlZKOfMVFOGA==
   dependencies:
-    "@hapi/hoek" "^8.3.0"
-    "@hapi/joi" "^16.1.7"
+    "@hapi/hoek" "^8.5.0"
+    "@hapi/joi" "^16.1.8"
     "@hapi/wreck" "^15.1.0"
-    date-fns "^2.4.1"
+    date-fns "^2.9.0"
     debug "^4.1.1"
 
 simple-swizzle@^0.2.2:
