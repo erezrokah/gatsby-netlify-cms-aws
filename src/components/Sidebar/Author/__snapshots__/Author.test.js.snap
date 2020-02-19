@@ -21,6 +21,7 @@ exports[`Author renders correctly 1`] = `
     >
       <img
         alt=""
+        aria-hidden={true}
         src="data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERA…nNfToI0vboLlrbFtvUBhy/spHFLp1B5OTXiAPuJj1KAFUE//Z"
         style={
           Object {
