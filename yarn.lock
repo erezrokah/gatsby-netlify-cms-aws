@@ -17858,10 +17858,10 @@ stylelint-config-recommended@^3.0.0:
   resolved "https://registry.yarnpkg.com/stylelint-config-recommended/-/stylelint-config-recommended-3.0.0.tgz#e0e547434016c5539fe2650afd58049a2fd1d657"
   integrity sha512-F6yTRuc06xr1h5Qw/ykb2LuFynJ2IxkKfCMf+1xqPffkxh0S09Zc902XCffcsw/XMFq/OzQ1w54fLIDtmRNHnQ==
 
-stylelint-scss@3.15.0:
-  version "3.15.0"
-  resolved "https://registry.yarnpkg.com/stylelint-scss/-/stylelint-scss-3.15.0.tgz#df873a1163b592ecbf985a84d598569222d67043"
-  integrity sha512-c6poL7nsU5XVXxl94jl+RY2Rf3CFfMuL8kWp9PfvDi4A7Op30KGAiIfB5Co1RFKnpIOkzz44EO8ur1T9DEl5mA==
+stylelint-scss@3.16.1:
+  version "3.16.1"
+  resolved "https://registry.yarnpkg.com/stylelint-scss/-/stylelint-scss-3.16.1.tgz#4164558f2113663e54101175588603e014cd0b9c"
+  integrity sha512-ATApYyUzIuwuppReVdAgjpJ77OXRQacV6Ff3vvYaT9z993ZOsSTEN+urdXsk9V28yWCLiAzcNjNZe01aw0VGBg==
   dependencies:
     lodash "^4.17.15"
     postcss-media-query-parser "^0.2.3"
