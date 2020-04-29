@@ -3032,10 +3032,25 @@ autoprefixer@9.7.4, autoprefixer@^9.7.1, autoprefixer@^9.7.3:
     postcss "^7.0.26"
     postcss-value-parser "^4.0.2"
 
-aws-sdk@^2.320.0, aws-sdk@^2.597.0:
+aws-sdk@^2.320.0:
   version "2.639.0"
   resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.639.0.tgz#ae887a179939750de240ddeb680668300256900f"
   integrity sha512-cbH69oV0ObZ4tapbjDqu0j3I779uscQNhRaewjIJY5O5At4RULtd7us24n72FtT4HIwM9cwORzVxA9rK6DHKOA==
+  dependencies:
+    buffer "4.9.1"
+    events "1.1.1"
+    ieee754 "1.1.13"
+    jmespath "0.15.0"
+    querystring "0.2.0"
+    sax "1.2.1"
+    url "0.10.3"
+    uuid "3.3.2"
+    xml2js "0.4.19"
+
+aws-sdk@^2.597.0:
+  version "2.666.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.666.0.tgz#4cd4f6bea920e3ef3192bf113aa9c606a307a709"
+  integrity sha512-m4m4eHs/F7SRW0OnvxRWyrAyqcQE7kyVnfwyrhA7P0w92FOmmu+tw6JKI5LZNVBsaj2VBAfPn72V6nWzP3IIlw==
   dependencies:
     buffer "4.9.1"
     events "1.1.1"
