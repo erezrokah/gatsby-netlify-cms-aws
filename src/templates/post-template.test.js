@@ -7,7 +7,7 @@ import siteMetadata from '../../jest/__fixtures__/site-metadata';
 import markdownRemark from '../../jest/__fixtures__/markdown-remark';
 import type { RenderCallback } from '../types';
 
-jest.mock('react-helmet', () => 'Helmet');
+jest.mock('react-helmet', () => ({ Helmet: 'Helmet' }));
 
 describe('PostTemplate', () => {
   const props = {
