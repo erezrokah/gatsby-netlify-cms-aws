@@ -23,7 +23,7 @@ module.exports = async (graphql, actions) => {
     }
   `);
 
-  _.each(result.data.allMarkdownRemark.group, category => {
+  _.each(result.data.allMarkdownRemark.group, (category) => {
     const numPages = Math.ceil(category.totalCount / postsPerPage);
     const categorySlug = `/category/${_.kebabCase(category.fieldValue)}`;
 

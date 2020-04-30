@@ -16,7 +16,7 @@ const TagsListTemplate = () => {
       <Sidebar />
       <Page title="Tags">
         <ul>
-          {tags.map(tag => (
+          {tags.map((tag) => (
             <li key={tag.fieldValue}>
               <Link to={`/tag/${kebabCase(tag.fieldValue)}/`}>
                 {tag.fieldValue} ({tag.totalCount})

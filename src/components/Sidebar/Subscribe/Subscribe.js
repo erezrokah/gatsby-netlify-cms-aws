@@ -13,7 +13,7 @@ import 'semantic-ui-less/definitions/collections/form.less';
 import 'semantic-ui-less/definitions/collections/message.less';
 import 'semantic-ui-less/definitions/modules/transition.less';
 
-const jsonpAsync = async url => {
+const jsonpAsync = async (url) => {
   return new Promise((resolve, reject) =>
     jsonp(url, { param: 'c', timeout: 3500 }, (err, data) => {
       if (err) reject(err);
@@ -35,11 +35,11 @@ const Subscribe = () => {
     messageVisible: false,
   });
 
-  const onValueChange = event => {
+  const onValueChange = (event) => {
     setState({ ...state, email: event.target.value });
   };
 
-  const onSubmit = async event => {
+  const onSubmit = async (event) => {
     event.preventDefault();
     setState({ ...state, status: 'sending', message: '' });
 

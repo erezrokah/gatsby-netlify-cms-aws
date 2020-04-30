@@ -13,7 +13,7 @@ type Props = {
 const Contacts = ({ contacts }: Props) => (
   <div className={styles['contacts']}>
     <ul className={styles['contacts__list']}>
-      {Object.keys(contacts).map(name => (
+      {Object.keys(contacts).map((name) => (
         <li className={styles['contacts__list-item']} key={name}>
           <a
             className={styles['contacts__list-item-link']}

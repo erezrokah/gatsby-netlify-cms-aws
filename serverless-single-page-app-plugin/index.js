@@ -40,7 +40,7 @@ class ServerlessPlugin {
   }
 
   async runSpawnCommand(command, args) {
-    const promise = new Promise(resolve => {
+    const promise = new Promise((resolve) => {
       const proc = spawn(command, args);
 
       const stdout = readline.createInterface({
@@ -53,15 +53,15 @@ class ServerlessPlugin {
         terminal: false,
       });
 
-      stdout.on('line', line => {
+      stdout.on('line', (line) => {
         this.serverless.cli.log(line);
       });
 
-      stderr.on('line', line => {
+      stderr.on('line', (line) => {
         this.serverless.cli.log(line);
       });
 
-      proc.on('close', code => {
+      proc.on('close', (code) => {
         resolve(code);
       });
     });
@@ -104,7 +104,10 @@ class ServerlessPlugin {
     } = this.serverless.variables.service.custom;
     const { extensions, cacheControl } = bucketCacheControl;
 
-    const toCacheExtensions = extensions.map(ext => ['--include', `*.${ext}`]);
+    const toCacheExtensions = extensions.map((ext) => [
+      '--include',
+      `*.${ext}`,
+    ]);
     const merged = [].concat.apply([], toCacheExtensions);
     const args = [
       's3',
@@ -157,9 +160,9 @@ class ServerlessPlugin {
 
     this.serverless.cli.log('Setting cache control for files');
     const exitCodes = await Promise.all(
-      allArgs.map(args => this.runAwsCommand(args)),
+      allArgs.map((args) => this.runAwsCommand(args)),
     );
-    if (exitCodes.every(exitCode => !exitCode)) {
+    if (exitCodes.every((exitCode) => !exitCode)) {
       this.serverless.cli.log('Successfully set cache control for files');
     } else {
       throw new Error('Failed setting cache control for files');
@@ -185,7 +188,7 @@ class ServerlessPlugin {
 
     const outputs = result.Stacks[0].Outputs;
     const output = outputs.find(
-      entry => entry.OutputKey === 'WebAppCloudFrontDistributionOutput',
+      (entry) => entry.OutputKey === 'WebAppCloudFrontDistributionOutput',
     );
 
     if (output.OutputValue) {
@@ -215,7 +218,7 @@ class ServerlessPlugin {
 
     const distributions = result.DistributionList.Items;
     const distribution = distributions.find(
-      entry => entry.DomainName === domain,
+      (entry) => entry.DomainName === domain,
     );
 
     if (distribution) {

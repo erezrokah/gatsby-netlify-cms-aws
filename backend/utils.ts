@@ -13,7 +13,7 @@ export const getSecrets = async (names: string[]) => {
     ).Parameters || [];
 
   const result: Record<string, string> = {};
-  Parameters.forEach(currentItem => {
+  Parameters.forEach((currentItem) => {
     if (currentItem.Name) {
       result[currentItem.Name] = currentItem.Value || '';
     }
