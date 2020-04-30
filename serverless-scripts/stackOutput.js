@@ -2,7 +2,7 @@ const fs = require('fs-extra');
 const path = require('path');
 const os = require('os');
 
-const getNetlifyCMSBackend = endpoint => {
+const getNetlifyCMSBackend = (endpoint) => {
   const { owner, repo } = require('../utils/githubConfig')();
   const lasIndex = endpoint.lastIndexOf('/');
   const base_url = endpoint.substring(0, lasIndex);
@@ -31,7 +31,7 @@ const updateSSM = async (endpoint, serverless) => {
     OAUTH_SCOPES: 'repo',
   };
 
-  const params = Object.keys(authSsmParameters).map(key => ({
+  const params = Object.keys(authSsmParameters).map((key) => ({
     Name: authSsmParameters[key],
     Value: envs[key],
     Type: 'SecureString',
@@ -39,7 +39,7 @@ const updateSSM = async (endpoint, serverless) => {
   }));
 
   await Promise.all(
-    params.map(p =>
+    params.map((p) =>
       provider.request('SSM', 'putParameter', p, currentStage, currentRegion),
     ),
   );

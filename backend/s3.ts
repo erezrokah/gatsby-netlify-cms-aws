@@ -36,8 +36,8 @@ const emptyS3Bucket = async (bucket: string) => {
 
 export const deleteBuckets = async (buckets: string[]) => {
   await Promise.all(
-    buckets.map(bucket =>
-      emptyS3Bucket(bucket).then(bucket =>
+    buckets.map((bucket) =>
+      emptyS3Bucket(bucket).then((bucket) =>
         s3.deleteBucket({ Bucket: bucket }).promise(),
       ),
     ),

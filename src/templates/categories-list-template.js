@@ -16,7 +16,7 @@ const CategoriesListTemplate = () => {
       <Sidebar />
       <Page title="Categories">
         <ul>
-          {categories.map(category => (
+          {categories.map((category) => (
             <li key={category.fieldValue}>
               <Link to={`/category/${kebabCase(category.fieldValue)}/`}>
                 {category.fieldValue} ({category.totalCount})

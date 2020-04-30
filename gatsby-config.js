@@ -59,7 +59,7 @@ module.exports = {
         feeds: [
           {
             serialize: ({ query: { site, allMarkdownRemark } }) =>
-              allMarkdownRemark.edges.map(edge =>
+              allMarkdownRemark.edges.map((edge) =>
                 Object.assign({}, edge.node.frontmatter, {
                   description: edge.node.frontmatter.description,
                   date: edge.node.frontmatter.date,
@@ -225,7 +225,7 @@ module.exports = {
         `,
         output: '/sitemap.xml',
         serialize: ({ site, allSitePage }) =>
-          allSitePage.edges.map(edge => ({
+          allSitePage.edges.map((edge) => ({
             url: site.siteMetadata.siteUrl + edge.node.path,
             changefreq: 'daily',
             priority: 0.7,
