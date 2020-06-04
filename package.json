@@ -122,7 +122,7 @@
     "@types/simple-oauth2": "^2.5.2",
     "@typescript-eslint/eslint-plugin": "^2.30.0",
     "@typescript-eslint/parser": "^2.30.0",
-    "autoprefixer": "9.7.6",
+    "autoprefixer": "9.8.0",
     "aws-sdk": "^2.666.0",
     "axios": "^0.19.0",
     "babel-core": "7.0.0-bridge.0",
