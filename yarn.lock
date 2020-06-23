@@ -3883,7 +3883,20 @@ auto-bind@^4.0.0:
   resolved "https://registry.yarnpkg.com/auto-bind/-/auto-bind-4.0.0.tgz#e3589fc6c2da8f7ca43ba9f84fa52a744fc997fb"
   integrity sha512-Hdw8qdNiqdJ8LqT0iK0sVzkFbzg6fhnQqqfWhBDxcHZvU75+B+ayzTy8x+k5Ix0Y92XOhOUlx74ps+bA6BeYMQ==
 
-autoprefixer@9.8.0, autoprefixer@^9.8.0:
+autoprefixer@9.8.3:
+  version "9.8.3"
+  resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-9.8.3.tgz#e04c8b7f72c608e4aef1b74a542946e2ed271753"
+  integrity sha512-Y3CkEPqPqGw0TNBcMoUAxeZT9WEOAh0BPYENOTrN/bEfNBqjlYWjHbR1PKduBrmAVn8WbEZtMA3gAZO5MgV7Pg==
+  dependencies:
+    browserslist "^4.12.0"
+    caniuse-lite "^1.0.30001087"
+    kleur "^4.0.1"
+    normalize-range "^0.1.2"
+    num2fraction "^1.2.2"
+    postcss "^7.0.32"
+    postcss-value-parser "^4.1.0"
+
+autoprefixer@^9.8.0:
   version "9.8.0"
   resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-9.8.0.tgz#68e2d2bef7ba4c3a65436f662d0a56a741e56511"
   integrity sha512-D96ZiIHXbDmU02dBaemyAg53ez+6F5yZmapmgKcjm35yEe1uVDYI8hGW3VYoGRaG290ZFf91YxHrR518vC0u/A==
@@ -5012,6 +5025,11 @@ caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001043, caniuse-lite@^1.0.30001061:
   version "1.0.30001078"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001078.tgz#e1b6e2ae327b6a1ec11f65ec7a0dde1e7093074c"
   integrity sha512-sF12qXe9VMm32IEf/+NDvmTpwJaaU7N1igpiH2FdI4DyABJSsOqG3ZAcFvszLkoLoo1y6VJLMYivukUAxaMASw==
+
+caniuse-lite@^1.0.30001087:
+  version "1.0.30001087"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001087.tgz#4a0bdc5998a114fcf8b7954e7ba6c2c29831c54a"
+  integrity sha512-KAQRGtt+eGCQBSp2iZTQibdCf9oe6cNTi5lmpsW38NnxP4WMYzfU6HCRmh4kJyh6LrTM9/uyElK4xcO93kafpg==
 
 canonicalize@^1.0.1:
   version "1.0.1"
@@ -12807,6 +12825,11 @@ kleur@^3.0.3:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-3.0.3.tgz#a79c9ecc86ee1ce3fa6206d1216c501f147fc07e"
   integrity sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==
+
+kleur@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/kleur/-/kleur-4.0.1.tgz#3d4948534b666e2578f93b6fafb62108e64f05ef"
+  integrity sha512-Qs6SqCLm63rd0kNVh+wO4XsWLU6kgfwwaPYsLiClWf0Tewkzsa6MvB21bespb8cz+ANS+2t3So1ge3gintzhlw==
 
 known-css-properties@^0.19.0:
   version "0.19.0"
