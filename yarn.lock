@@ -2410,9 +2410,9 @@
     "@types/node" "*"
 
 "@types/simple-oauth2@^2.5.2":
-  version "2.5.3"
-  resolved "https://registry.yarnpkg.com/@types/simple-oauth2/-/simple-oauth2-2.5.3.tgz#c253ec4452847f1f8d095d50590963e2f61b3a5f"
-  integrity sha512-LM3KjCEHxiU3wkwGbKO0WVyJUrqDKZMVCZUhUy8qbPnReDfBZyOw5BToy9mE9EX54h+ZvwkSLuZG6xilX/O2PA==
+  version "2.5.4"
+  resolved "https://registry.yarnpkg.com/@types/simple-oauth2/-/simple-oauth2-2.5.4.tgz#0cde069c4a76c3bc21642972150a951c2bc864c7"
+  integrity sha512-+s8E3lDnVE+mftTFZtxSF9U9nE6bDFOeAYOUoQ700Tv/nT70y+bqNkpSxfCqtForzAqQANpXo92r/lXE37fmew==
 
 "@types/stack-utils@^1.0.1":
   version "1.0.1"
