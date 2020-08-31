@@ -2642,7 +2642,7 @@
     "@types/glob" "*"
     "@types/node" "*"
 
-"@types/simple-oauth2@^2.5.2":
+"@types/simple-oauth2@^2.5.4":
   version "2.5.4"
   resolved "https://registry.yarnpkg.com/@types/simple-oauth2/-/simple-oauth2-2.5.4.tgz#0cde069c4a76c3bc21642972150a951c2bc864c7"
   integrity sha512-+s8E3lDnVE+mftTFZtxSF9U9nE6bDFOeAYOUoQ700Tv/nT70y+bqNkpSxfCqtForzAqQANpXo92r/lXE37fmew==
