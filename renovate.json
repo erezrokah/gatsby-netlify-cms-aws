@@ -17,6 +17,7 @@
       "groupName": "react"
     }
   ],
+  "masterIssue": true,
   "labels": ["renovate"],
   "rangeStrategy": "update-lockfile",
   "automerge": true,
