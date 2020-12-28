@@ -1,6 +1,6 @@
 backend:
   name: github
-  branch: master
+  branch: main
   preview_context: ci/preview
 
 publish_mode: editorial_workflow

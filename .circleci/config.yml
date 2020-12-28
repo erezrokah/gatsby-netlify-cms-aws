@@ -21,13 +21,13 @@ aliases:
     filters:
       branches:
         ignore:
-          - /master/
+          - /main/
           - /^cms.*/
 
   - &deploy_prod_filters
     filters:
       branches:
-        only: master
+        only: main
 
   - &save_cache
     save_cache:
