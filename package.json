@@ -165,7 +165,7 @@
     "serverless-webpack": "^5.3.1",
     "simple-oauth2": "^3.1.0",
     "standard-version": "8.0.1",
-    "stylelint": "13.7.1",
+    "stylelint": "13.8.0",
     "stylelint-config-recommended-scss": "4.2.0",
     "stylelint-scss": "3.18.0",
     "ts-jest": "^25.4.0",
