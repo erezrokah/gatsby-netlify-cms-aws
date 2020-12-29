@@ -115,7 +115,7 @@
     "@babel/plugin-transform-flow-strip-types": "^7.10.4",
     "@babel/preset-env": "7.12.11",
     "@babel/preset-react": "7.12.10",
-    "@testing-library/react": "^10.4.9",
+    "@testing-library/react": "^11.0.0",
     "@types/aws-lambda": "^8.10.62",
     "@types/jest": "^25.2.3",
     "@types/randomstring": "^1.1.6",
