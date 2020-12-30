@@ -105,6 +105,12 @@ module.exports = {
         plugins: [
           'gatsby-plugin-netlify-cms-paths',
           {
+            resolve: `gatsby-remark-relative-images`,
+            options: {
+              staticFolderName: 'static',
+            },
+          },
+          {
             resolve: 'gatsby-remark-embed-video',
             options: { width: 800, related: false },
           },
