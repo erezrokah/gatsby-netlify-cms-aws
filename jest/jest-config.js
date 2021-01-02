@@ -12,7 +12,9 @@ module.exports = {
       '<rootDir>/jest/__mocks__/file-mock.js',
   },
   testPathIgnorePatterns: ['node_modules', '.cache', 'public'],
-  transformIgnorePatterns: ['node_modules/(?!(gatsby|semantic-ui-react)/)'],
+  transformIgnorePatterns: [
+    'node_modules/(?!(gatsby|semantic-ui-react|date-fns)/)',
+  ],
   globals: {
     __PATH_PREFIX__: '',
   },

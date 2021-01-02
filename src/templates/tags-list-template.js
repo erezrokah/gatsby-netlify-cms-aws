@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import { Link } from 'gatsby';
-import kebabCase from 'lodash/kebabCase';
+import { paramCase as kebabCase } from 'param-case';
 import Layout from '../components/Layout';
 import Sidebar from '../components/Sidebar';
 import Page from '../components/Page';

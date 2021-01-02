@@ -29,17 +29,10 @@ aliases:
       branches:
         only: main
 
-  - &save_cache
-    save_cache:
-      paths:
-        - node_modules
-      key: dependencies-cache-v5-{{ checksum "yarn.lock" }}
-
-  - &restore_cache
-    restore_cache:
-      keys:
-        - dependencies-cache-v5-{{ checksum "yarn.lock" }}
-        - dependencies-cache-v5
+  - &install_dependencies
+    run:
+      name: Install Dependencies
+      command: yarn install --frozen-lockfile
 
   - &install_serverless_cli
     run:
@@ -52,11 +45,6 @@ aliases:
       aws-access-key-id: AWS_ACCESS_KEY_ID
       aws-secret-access-key: AWS_SECRET_ACCESS_KEY
       configure-default-region: false
-
-  - &install_serverless_cli
-    run:
-      name: Install Serverless CLI
-      command: sudo npm i -g serverless
 
   - &fix_mimetypes
     run:
@@ -106,17 +94,13 @@ jobs:
     <<: *container_config
     steps:
       - *checkout
-      - *restore_cache
-      - run:
-          name: Install dependencies
-          command: yarn install --frozen-lockfile
-      - *save_cache
+      - *install_dependencies
 
   test:
     <<: *container_config
     steps:
       - *checkout
-      - *restore_cache
+      - *install_dependencies
       - run:
           name: Run linter
           command: yarn lint
@@ -132,7 +116,7 @@ jobs:
     <<: *container_config
     steps:
       - *checkout
-      - *restore_cache
+      - *install_dependencies
 
       - run:
           name: Extract PR number from PR Url
@@ -148,7 +132,6 @@ jobs:
             -X POST https://api.github.com/repos/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/statuses/$CIRCLE_SHA1
 
       - *install_serverless_cli
-      - aws-cli/install
       - *configure_aws_cli
       - *fix_mimetypes
       - run:
@@ -176,9 +159,8 @@ jobs:
     <<: *container_config
     steps:
       - *checkout
-      - *restore_cache
+      - *install_dependencies
       - *install_serverless_cli
-      - aws-cli/install
       - *configure_aws_cli
       - *fix_mimetypes
       - *create_cert
@@ -195,9 +177,8 @@ jobs:
     <<: *container_config
     steps:
       - *checkout
-      - *restore_cache
+      - *install_dependencies
       - *install_serverless_cli
-      - aws-cli/install
       - *configure_aws_cli
       - *fix_mimetypes
       - *create_cert

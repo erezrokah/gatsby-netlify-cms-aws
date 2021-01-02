@@ -10,7 +10,7 @@ module.exports = {
   url: `https://${process.env.DOMAIN}`,
   title: 'Blog by John Doe',
   subtitle,
-  copyright: '© 2019 All rights reserved.',
+  copyright: '© 2021 All rights reserved.',
   disqusShortname: process.env.DISQUS_SHORT_NAME || '',
   postsPerPage: 6,
   googleAnalyticsId: process.env.GOOGLE_ANALYTICS_ID || '',

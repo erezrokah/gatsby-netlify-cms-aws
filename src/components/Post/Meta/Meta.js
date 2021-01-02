@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import moment from 'moment';
+import { format } from 'date-fns/esm';
 import styles from './Meta.module.scss';
 
 type Props = {
@@ -10,7 +10,7 @@ type Props = {
 const Meta = ({ date }: Props) => (
   <div className={styles['meta']}>
     <p className={styles['meta__date']}>
-      Published {moment(date).format('D MMM YYYY')}
+      Published {format(new Date(date), 'd MMM yyyy')}
     </p>
   </div>
 );
