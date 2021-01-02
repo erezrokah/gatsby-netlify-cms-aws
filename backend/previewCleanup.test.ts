@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable @typescript-eslint/no-var-requires,@typescript-eslint/naming-convention */
 
 jest.mock('./s3');
 jest.spyOn(console, 'log');

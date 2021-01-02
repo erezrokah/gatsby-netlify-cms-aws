@@ -5,9 +5,11 @@ const s3 = new S3();
 
 const emptyS3Bucket = async (bucket: string) => {
   const listParams = {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     Bucket: bucket,
   };
 
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   const { Contents = [], IsTruncated = false } = await s3
     .listObjectsV2(listParams)
     .promise();
@@ -17,11 +19,15 @@ const emptyS3Bucket = async (bucket: string) => {
   }
 
   const deleteParams = {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     Bucket: bucket,
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     Delete: { Objects: [] as ObjectIdentifier[] },
   };
 
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   Contents.forEach(({ Key = '' }) => {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     deleteParams.Delete.Objects.push({ Key });
   });
 
@@ -34,17 +40,19 @@ const emptyS3Bucket = async (bucket: string) => {
   return bucket;
 };
 
-export const deleteBuckets = async (buckets: string[]) => {
+export const deleteBuckets = async (buckets: string[]): Promise<void> => {
   await Promise.all(
     buckets.map((bucket) =>
       emptyS3Bucket(bucket).then((bucket) =>
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         s3.deleteBucket({ Bucket: bucket }).promise(),
       ),
     ),
   );
 };
 
-export const listBuckets = async () => {
+export const listBuckets = async (): Promise<S3.Buckets> => {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   const { Buckets = [] } = await s3.listBuckets().promise();
   return Buckets;
 };

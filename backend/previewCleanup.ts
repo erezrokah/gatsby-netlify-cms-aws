@@ -12,6 +12,7 @@ export const handler: Handler = async () => {
   if (bucketRegex.endsWith('-preview-\\d+')) {
     const buckets = await listBuckets();
 
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     const previews = buckets.filter(({ Name = '' }) => regexp.test(Name));
 
     console.log(
@@ -24,10 +25,12 @@ export const handler: Handler = async () => {
     const currentTime = Date.now();
 
     const toDelete = previews
+      // eslint-disable-next-line @typescript-eslint/naming-convention
       .filter(({ CreationDate = new Date(0) }) => {
         const timePassedSeconds = (currentTime - CreationDate.getTime()) / 1000;
         return timePassedSeconds > previewExpirySeconds;
       })
+      // eslint-disable-next-line @typescript-eslint/naming-convention
       .map(({ Name }) => Name || '');
 
     if (toDelete.length > 0) {
