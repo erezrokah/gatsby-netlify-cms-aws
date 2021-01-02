@@ -28,6 +28,12 @@ describe('Lighthouse', () => {
           case 'uses-long-cache-ttl':
             expect(score).toBeGreaterThanOrEqual(0.97);
             break;
+          case 'maskable-icon':
+            expect(score).toBe(0);
+            break;
+          case 'unused-javascript':
+            expect(score).toBeGreaterThanOrEqual(0.5);
+            break;
           case 'first-contentful-paint':
           case 'first-meaningful-paint':
           case 'max-potential-fid':

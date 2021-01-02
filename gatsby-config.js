@@ -282,5 +282,7 @@ module.exports = {
       },
     },
     'gatsby-plugin-flow',
+    `gatsby-plugin-lodash`,
+    'gatsby-plugin-webpack-bundle-analyser-v2',
   ],
 };
