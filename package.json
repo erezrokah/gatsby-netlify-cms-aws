@@ -104,7 +104,7 @@
     "react-dom": "^17.0.1",
     "react-helmet": "^6.0.0",
     "semantic-ui-less": "^2.4.1",
-    "semantic-ui-react": "^0.88.2"
+    "semantic-ui-react": "^2.0.0"
   },
   "devDependencies": {
     "@anttiviljami/serverless-stack-output": "^0.3.1",
