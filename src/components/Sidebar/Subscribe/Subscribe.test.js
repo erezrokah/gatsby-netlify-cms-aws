@@ -76,7 +76,7 @@ describe('Subscribe', () => {
     );
 
     expect(container.firstChild).toMatchSnapshot();
-    jest.runTimersToTime(4000);
+    jest.advanceTimersByTime(4000);
     expect(container.firstChild).toMatchSnapshot();
   });
 
@@ -95,7 +95,7 @@ describe('Subscribe', () => {
     expect(jsonp).toHaveBeenCalledTimes(1);
 
     expect(container.firstChild).toMatchSnapshot();
-    jest.runTimersToTime(4000);
+    jest.advanceTimersByTime(4000);
     expect(container.firstChild).toMatchSnapshot();
   });
 });
