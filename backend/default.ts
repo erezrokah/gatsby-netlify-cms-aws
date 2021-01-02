@@ -5,6 +5,7 @@ export const handler: Handler = (e, ctx, cb) => {
   cb(null, {
     statusCode: 302,
     headers: {
+      // eslint-disable-next-line @typescript-eslint/naming-convention
       Location: '/auth',
     },
   });

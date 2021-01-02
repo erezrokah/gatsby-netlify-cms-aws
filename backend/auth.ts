@@ -44,6 +44,7 @@ export const handler: Handler = async (e: APIGatewayProxyEvent, ctx, cb) => {
 
   // Authorization uri definition
   const authorizationUri = oauth2.authorizationCode.authorizeURL({
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     redirect_uri: secrets[REDIRECT_URL],
     scope: secrets[OAUTH_SCOPES],
     state: randomstring.generate(32),
@@ -52,6 +53,7 @@ export const handler: Handler = async (e: APIGatewayProxyEvent, ctx, cb) => {
   cb(null, {
     statusCode: 302,
     headers: {
+      // eslint-disable-next-line @typescript-eslint/naming-convention
       Location: authorizationUri,
     },
   });

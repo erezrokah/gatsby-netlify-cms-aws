@@ -65,6 +65,7 @@ export const handler: Handler = async (e: APIGatewayProxyEvent, ctx, cb) => {
 
     const options = {
       code,
+      // eslint-disable-next-line @typescript-eslint/naming-convention
       redirect_uri: secrets[REDIRECT_URL],
       scope: secrets[OAUTH_SCOPES],
     };
@@ -73,6 +74,7 @@ export const handler: Handler = async (e: APIGatewayProxyEvent, ctx, cb) => {
     cb(null, {
       statusCode: 200,
       headers: {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         'Content-Type': 'text/html',
       },
       body: getScript('success', {
@@ -84,6 +86,7 @@ export const handler: Handler = async (e: APIGatewayProxyEvent, ctx, cb) => {
     cb(null, {
       statusCode: 200,
       headers: {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         'Content-Type': 'text/html',
       },
       body: getScript('error', err),
