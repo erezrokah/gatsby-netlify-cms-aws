@@ -21,6 +21,7 @@ describe('Lighthouse', () => {
     const { id, title, score } = result;
     if (score !== null) {
       test(`${title} - ${id}`, () => {
+        /* eslint-disable jest/no-conditional-expect */
         switch (id) {
           case 'is-crawlable':
             expect(score).toEqual(process.env.STAGE === 'prod' ? 1 : 0);
@@ -49,6 +50,7 @@ describe('Lighthouse', () => {
           default:
             expect(score).toEqual(1);
             break;
+          /* eslint-enable jest/no-conditional-expect */
         }
       });
     }
