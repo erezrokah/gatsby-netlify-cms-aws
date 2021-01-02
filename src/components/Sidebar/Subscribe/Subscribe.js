@@ -1,9 +1,7 @@
 // @flow
 import React, { useState } from 'react';
 import jsonp from 'jsonp';
-import Form from 'semantic-ui-react/dist/es/collections/Form/Form.js';
-import Message from 'semantic-ui-react/dist/es/collections/Message/Message.js';
-import Transition from 'semantic-ui-react/dist/es/modules/Transition/Transition.js';
+import { Form, Message, Transition } from 'semantic-ui-react';
 import styles from './Subscribe.module.scss';
 
 // semantic-ui-less imports
