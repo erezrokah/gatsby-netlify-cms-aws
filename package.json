@@ -173,7 +173,7 @@
     "yargs": "^16.0.0"
   },
   "resolutions": {
-    "graceful-fs": "4.2.4"
+    "graceful-fs": "4.2.6"
   },
   "browserslist": [
     "> 0.5%, last 2 versions, not dead"
