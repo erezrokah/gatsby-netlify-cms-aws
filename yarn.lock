@@ -17341,9 +17341,9 @@ serverless-certificate-creator@^1.3.0:
     yamljs "^0.3.0"
 
 serverless-iam-roles-per-function@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/serverless-iam-roles-per-function/-/serverless-iam-roles-per-function-3.0.1.tgz#6876864e713ea5d28ef734d767ec3fa5b10c98c3"
-  integrity sha512-XHsmzjYdflL6Pv1HY0Olpn00LpFqCaEGeNSv+wBx/2+p/yEDzSCuFAqmPY43OyyXZlqeyQfFNZJc/2OAfTwvYA==
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/serverless-iam-roles-per-function/-/serverless-iam-roles-per-function-3.1.0.tgz#3bd87011234641f4e4883b1a8aeecb8610ac71c5"
+  integrity sha512-/kNfT169FOOrYtkN6WV3fU9Nt0E2pku/1Vio1My82iKnbUQ9Bx35PSOvdRS32e7mLVwbdwZ5ecMKG1lpsuQLoA==
   dependencies:
     lodash "^4.17.20"
 
