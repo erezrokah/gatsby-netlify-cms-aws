@@ -132,7 +132,7 @@
     "chrome-launcher": "^0.13.0",
     "dotenv": "^8.2.0",
     "eslint": "^7.0.0",
-    "eslint-config-prettier": "^7.0.0",
+    "eslint-config-prettier": "^8.0.0",
     "eslint-plugin-import": "2.23.3",
     "eslint-plugin-jest": "^24.0.0",
     "eslint-plugin-jsx-a11y": "6.4.1",
