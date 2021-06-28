@@ -91,7 +91,7 @@
     "invariant": "^2.2.4",
     "jsonp": "^0.2.1",
     "katex": "^0.13.0",
-    "less": "^3.9.0",
+    "less": "^4.0.0",
     "lodash": "^4.17.11",
     "netlify-cms-app": "^2.12.11",
     "node-sass": "^4.14.0",
