@@ -140,7 +140,7 @@
     "eslint-watch": "7.0.0",
     "flow-bin": "^0.130.0",
     "flow-typed": "^3.1.0",
-    "fs-extra": "^9.0.0",
+    "fs-extra": "^10.0.0",
     "gatsby-plugin-lodash": "^3.7.0",
     "gatsby-plugin-webpack-bundle-analyser-v2": "^1.1.18",
     "identity-obj-proxy": "3.0.0",
