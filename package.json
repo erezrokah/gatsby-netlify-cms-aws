@@ -127,7 +127,7 @@
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "10.1.0",
     "babel-jest": "25.5.1",
-    "babel-preset-gatsby": "0.9.1",
+    "babel-preset-gatsby": "0.12.3",
     "browserslist": "4.16.6",
     "chrome-launcher": "^0.13.0",
     "dotenv": "^8.2.0",
